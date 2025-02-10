@@ -37,7 +37,7 @@ const header = document.querySelector("[data-header]");
 const backTopBtn = document.querySelector("[data-back-top-btn]"); 
 
 window.addEventListener("scroll", function () { 
-    if (window.screenY >= 100) { 
+    if (window.scrollY >= 100) { 
         header.classList.add("active");
         backTopBtn.classList.add("active"); 
     } else { 
@@ -59,3 +59,32 @@ const reveal = function () {
 
 reveal(); 
 addEventOnElem(window, "scroll", reveal);
+
+/* JavaScript for Form Validation */
+
+document.getElementById("contactForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    alert("Your message has been sent successfully!");
+    this.reset();
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const serviceLinks = document.querySelectorAll(".service-link");
+    const messageField = document.getElementById("message");
+
+    // When a product title is clicked, update the message field
+    serviceLinks.forEach(link => {
+        link.addEventListener("click", function () {
+            const serviceName = this.getAttribute("data-service");
+            messageField.value = `I would like more information about: ${serviceName}`;
+        });
+    });
+
+    // Check if there's a service in the URL and pre-fill the message
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedService = urlParams.get("service");
+    if (selectedService) {
+        messageField.value = `I would like more information about: ${selectedService}`;
+    }
+});
