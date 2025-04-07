@@ -2,7 +2,7 @@
 
 @import url(https://db.onlinewebfonts.com/c/a2f0bd9f09f2f8f3a841856ce9f0e92d?family=Athachantr+Trial);
 @import url(https://db.onlinewebfonts.com/c/9366bd460113d8bf675fd2bdfe1ce764?family=The+Seasons);
-@import url(https://db.onlinewebfonts.com/c/a81c6ef023e90fb9f87ac017d242a337?family=Montserrat);
+@import url(https://db.onlinewebfonts.com/c/210b0e61cbc8cc0051409b37c6babe5a?family=Montserrat-Light);
 
 @font-face {
     font-family: "Athachantr Trial";
@@ -21,13 +21,13 @@
     url("https://db.onlinewebfonts.com/t/9366bd460113d8bf675fd2bdfe1ce764.ttf")format("truetype"),
     url("https://db.onlinewebfonts.com/t/9366bd460113d8bf675fd2bdfe1ce764.svg#The Seasons")format("svg");
 
-    font-family: "Montserrat";
-    src: url("https://db.onlinewebfonts.com/t/a81c6ef023e90fb9f87ac017d242a337.eot");
-    src: url("https://db.onlinewebfonts.com/t/a81c6ef023e90fb9f87ac017d242a337.eot?#iefix")format("embedded-opentype"),
-    url("https://db.onlinewebfonts.com/t/a81c6ef023e90fb9f87ac017d242a337.woff2")format("woff2"),
-    url("https://db.onlinewebfonts.com/t/a81c6ef023e90fb9f87ac017d242a337.woff")format("woff"),
-    url("https://db.onlinewebfonts.com/t/a81c6ef023e90fb9f87ac017d242a337.ttf")format("truetype"),
-    url("https://db.onlinewebfonts.com/t/a81c6ef023e90fb9f87ac017d242a337.svg#Montserrat")format("svg");
+    font-family: "Montserrat-Light";
+    src: url("https://db.onlinewebfonts.com/t/210b0e61cbc8cc0051409b37c6babe5a.eot");
+    src: url("https://db.onlinewebfonts.com/t/210b0e61cbc8cc0051409b37c6babe5a.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/210b0e61cbc8cc0051409b37c6babe5a.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/210b0e61cbc8cc0051409b37c6babe5a.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/210b0e61cbc8cc0051409b37c6babe5a.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/210b0e61cbc8cc0051409b37c6babe5a.svg#Montserrat-Light")format("svg");
 }
 
 :root { 
@@ -55,12 +55,13 @@
 
 
     /* Typography */
-    --ff-kora1: "Athachantr Trial","The Seasons","Montserrat";
+    --ff-kora1: "Athachantr Trial";
     --ff-kora2: "The Seasons";
-    --ff-kora3: "Montserrat";
+    --ff-kora3: "Montserrat-Light";
 
     --fs-1: 3.6rem; 
-    --fs-2: 2.4rem; 
+    --fs-2: 2.4rem;
+    --fs-2_2: 5rem;
     --fs-3: 2.2rem; 
     --fs-4: 2rem; 
     --fs-5: 1.5rem; 
@@ -134,7 +135,7 @@ address {font-family: normal;}
 /* Primary CSS Style */
 
 html {
-    font-family: var(--ff-kora1);
+    font-family: var(--ff-kora2);
     font-size: 10px;
     scroll-behavior: smooth;
 }
@@ -280,13 +281,12 @@ body {
 .h2, 
 .h3 { 
     color: var(--kora-orange-light); 
-    font-family: var(--ff-kora); 
     line-height: 1.1;
 } 
 
 .h1 { font-size: var(--fs-1); } 
 
-.h2 { font-size: var(--fs-2); } 
+.h2 { font-size: var(--fs-2_2); } 
 
 .h3 { font-size: var(--fs-4); }
 
@@ -311,7 +311,8 @@ body {
 
 .hero-text { 
     color: var(--white); 
-    font-weight: var(--fw-600); 
+    font-weight: var(--fw-500);
+    text-align: justify;
 }
 
 .hero .btn { margin-block: 20px; } 
@@ -409,11 +410,13 @@ body {
 
 .service-card .h3 { 
     --fs-4: 2.4rem;
-    color: var(--kora-blue-dark); 
+    color: var(--kora-blue-dark);
+    font-size: var(--fs-3);
+    line-height: 1.3;
 } 
 
 .service-card .card-title { 
-    transition: var(--transition-1); 
+    transition: var(--transition-1);
 } 
 
 .service-card .card-title:is(:hover, :focus) { 
@@ -458,22 +461,14 @@ body {
     margin-block-end: 15px; 
 }
 
-.section-subtitle { 
-    text-align: center; 
-} 
-
 .section-text { 
     font-size: var(--fs-5); 
 } 
 
-.section-title {
-    color: var(--kora-blue-dark);
-    text-align: center;
-}
-
 .about { 
     background-color: var(--cultured); 
     overflow: hidden; 
+    font-family: var(--ff-kora3);
 } 
 
 .about-banner { 
@@ -544,15 +539,6 @@ body {
 
 .about :is(.section-subtitle, .section-title) { 
     text-align: left; 
-} 
-
-.about .section-title { margin-block-end: 20px; } 
-
-.about-h3 { 
-    color: var(--kora-blue-dark); 
-    font-size: var(--fs-2); 
-    font-weight: var(--fw-600); 
-    margin-block: 30px 10px; 
 }
 
 /* Services */
@@ -564,10 +550,15 @@ body {
     z-index: 1;
 }
 
+.title-wrapper .section-subtitle{
+    font-size: var(--fs-2_2);
+    color: var(--kora-blue-mid);
+}
+
 .title-wrapper::after { 
     content: ""; 
     position: absolute; 
-    top: 40%; 
+    top: 0%; 
     left: 50%; 
     transform: translate(-50%,-50%); 
     width: 120px; 
@@ -595,13 +586,14 @@ body {
 .card-meta-list { 
     display: flex; 
     align-items: center; 
-    gap: 25px; 
+    gap: 25px;
 }
 
 .card-meta-item { 
     position: relative; 
     color: var(--orange-web); 
-    font-size: var(--fs-6); 
+    font-size: var(--fs-6);
+    text-align: center;
 } 
     
 .card-meta-item:not(:last-child)::after { 
@@ -645,7 +637,8 @@ body {
 
 .course-card .card-title { 
     margin-block: 10px 20px; 
-    transition: var(--transition-1); 
+    transition: var(--transition-1);
+    text-align: center; 
 }
 
 .course-card .card-title:is(:hover, :focus) { color: var(--kora-blue-light); }
@@ -764,6 +757,7 @@ body {
 
 .input-group textarea {
     resize: none;
+    font-family: var(--ff-kora1);
 }
 
 .contact-form button {
@@ -841,7 +835,7 @@ body {
     padding-block: 25px; 
 }
 
-.copyright { margin-block-end: 25px; }
+.copyright { margin-block-end: 25px; text-align: center;}
 
 .copyright :is(.copyright-link, ion-icon) { 
     display: inline-block; 
@@ -1069,7 +1063,7 @@ body {
 
     .about-banner { margin-block-end: 0; } 
     
-    .about-content { padding: 40px; } 
+    .about-content { column-count: 2; padding: 40px; } 
     
     .about .section-title { --fs-2: 4.4rem; } 
     
@@ -1121,7 +1115,7 @@ body {
     
     .service-card:is(:hover, :focus-within, .active) .btn {opacity: 1; } 
     
-    .about-content { padding: 100px 80px; } 
+    .about-content { column-count: 2; } 
     
     .about .section-title { --fs-2: 5.7rem; } 
     
