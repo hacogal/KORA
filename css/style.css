@@ -738,6 +738,11 @@ body {
 .course-card .card-title:is(:hover, :focus) { color: var(--kora-blue-light); }
 
 /* Testimonies */
+
+.testimonies{
+    background-color: var(--cultured);
+}
+
 .testimonies-card { 
     background-color: var(--white); 
     min-height: 420px; 
@@ -807,7 +812,7 @@ body {
 
 /* Contact Form Styling */
 .contact {
-    background-color: var(--cultured);
+    background-color: var(--white);
     padding: var(--section-padding) 0;
     text-align: center;
 }
@@ -847,6 +852,13 @@ body {
     border-radius: var(--radius-2);
     font-size: var(--fs-5);
     color: var(--davys-gray);
+    transition: border-color 0.3s ease;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+    outline: none;
+    border-color: var(--kora-blue-mid);
 }
 
 .input-group textarea {
@@ -855,18 +867,104 @@ body {
 }
 
 .contact-form button {
+    position: relative;
     background-color: var(--kora-blue-dark);
     color: var(--white);
     font-size: var(--fs-6);
     font-weight: var(--fw-600);
     padding: 10px;
+    border: none;
     border-radius: var(--radius-50);
     transition: var(--transition-1);
     cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 44px;
 }
 
 .contact-form button:hover {
     background-color: var(--kora-blue-mid);
+}
+
+.contact-form button:disabled {
+    background-color: var(--light-gray);
+    cursor: not-allowed;
+}
+
+/* Button loader styling */
+.button-loader {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Button text and loader visibility states */
+.is-loading .button-text {
+    display: none;
+}
+
+.is-loading .button-loader {
+    display: block;
+}
+
+/* Form feedback message styling */
+.form-message {
+    padding: 12px;
+    margin-top: 15px;
+    border-radius: var(--radius-5);
+    font-weight: var(--fw-500);
+    transition: all 0.3s ease;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.form-message.success {
+    background-color: rgba(0, 200, 81, 0.1);
+    color: #00c851;
+    border: 1px solid rgba(0, 200, 81, 0.2);
+    opacity: 1;
+    height: auto;
+    padding: 12px;
+}
+
+.form-message.error {
+    background-color: rgba(255, 82, 82, 0.1);
+    color: #ff5252;
+    border: 1px solid rgba(255, 82, 82, 0.2);
+    opacity: 1;
+    height: auto;
+    padding: 12px;
+}
+
+/* Form field validation styling */
+.input-group.error input,
+.input-group.error textarea {
+    border-color: #ff5252;
+}
+
+.input-group .error-text {
+    color: #ff5252;
+    font-size: var(--fs-7);
+    margin-top: 5px;
+    display: none;
+}
+
+.input-group.error .error-text {
+    display: block;
 }
 
 /* Footer */
@@ -1085,6 +1183,8 @@ body {
     .about-content { padding: 100px 80px; } 
 
     .about .section-title { --fs-2: 5.7rem; }
+    .about-banner { max-height: 250px; }
+    .about-content { padding: 20px;}
 
     .course-card .card-price { 
         width: 80px; 

@@ -60,14 +60,6 @@ const reveal = function () {
 reveal(); 
 addEventOnElem(window, "scroll", reveal);
 
-/* JavaScript for Form Validation */
-
-document.getElementById("contactForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    alert("Your message has been sent successfully!");
-    this.reset();
-});
-
 
 document.addEventListener("DOMContentLoaded", function () {
     const serviceLinks = document.querySelectorAll(".service-link");
@@ -189,3 +181,136 @@ contactButton.addEventListener('click', function() {
       modal.style.display = 'none';
     }
   });
+
+  //EmailJS
+  const form = document.getElementById('form');
+    const submitButton = document.getElementById('button');
+    const formMessage = document.getElementById('form-message');
+    
+    // Simple validation for fields
+    function validateField(field) {
+        const value = field.value.trim();
+        const fieldGroup = field.closest('.input-group');
+        
+        // Remove existing error message if present
+        const existingError = fieldGroup.querySelector('.error-text');
+        if (existingError) {
+            existingError.remove();
+        }
+        
+        // Check if field is empty
+        if (!value) {
+            fieldGroup.classList.add('error');
+            const errorText = document.createElement('span');
+            errorText.classList.add('error-text');
+            errorText.textContent = `${field.placeholder} is required`;
+            fieldGroup.appendChild(errorText);
+            return false;
+        }
+        
+        // Email validation
+        if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+            fieldGroup.classList.add('error');
+            const errorText = document.createElement('span');
+            errorText.classList.add('error-text');
+            errorText.textContent = 'Please enter a valid email address';
+            fieldGroup.appendChild(errorText);
+            return false;
+        }
+        
+        fieldGroup.classList.remove('error');
+        return true;
+    }
+    
+    // Reset validation state when typing
+    document.querySelectorAll('.input-group input, .input-group textarea').forEach(field => {
+        field.addEventListener('input', () => {
+            field.closest('.input-group').classList.remove('error');
+            const errorText = field.closest('.input-group').querySelector('.error-text');
+            if (errorText) {
+                errorText.remove();
+            }
+        });
+    });
+    
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        // Reset form message
+        formMessage.className = 'form-message';
+        formMessage.textContent = '';
+        
+        // Validate all fields
+        const nameField = document.getElementById('name');
+        const emailField = document.getElementById('email');
+        const messageField = document.getElementById('message');
+        
+        const isNameValid = validateField(nameField);
+        const isEmailValid = validateField(emailField);
+        const isMessageValid = validateField(messageField);
+        
+        if (!isNameValid || !isEmailValid || !isMessageValid) {
+            showFormMessage('Please correct the errors above', 'error');
+            return;
+        }
+        
+        // Show loading state
+        submitButton.disabled = true;
+        submitButton.classList.add('is-loading');
+        
+        // EmailJS configuration
+        const serviceID = 'default_service';
+        const templateID = 'template_1s3muw6';
+        
+        // Check if EmailJS is available
+        if (typeof emailjs === 'undefined') {
+            console.error('EmailJS is not loaded');
+            showFormMessage('Email service is not available. Please try again later.', 'error');
+            resetSubmitButton();
+            return;
+        }
+        
+        emailjs.sendForm(serviceID, templateID, form)
+            .then(() => {
+                // Show success message
+                showFormMessage('Thank you! Your message has been sent successfully.', 'success');
+                
+                // Reset form
+                form.reset();
+            })
+            .catch((error) => {
+                console.error('EmailJS error:', error);
+                showFormMessage('Sorry, there was an error sending your message. Please try again later.', 'error');
+            })
+            .finally(() => {
+                // Reset button state
+                resetSubmitButton();
+            });
+    });
+    
+    function showFormMessage(message, type) {
+        formMessage.textContent = message;
+        formMessage.className = `form-message ${type}`;
+        
+        // Scroll to message if it's not visible
+        setTimeout(() => {
+            if (!isElementInViewport(formMessage)) {
+                formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }, 100);
+    }
+    
+    function resetSubmitButton() {
+        submitButton.disabled = false;
+        submitButton.classList.remove('is-loading');
+    }
+    
+    function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    };
